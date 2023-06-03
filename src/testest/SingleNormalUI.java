@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -71,64 +73,31 @@ public class SingleNormalUI {
 		frame.getContentPane().add(rabbitbtn);
 		rabbitbtn.setLayout(null);
 		
+		JLabel backgroundLabel = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = new ImageIcon("C:\\\\Users\\\\User\\\\eclipse-workspace\\\\testest\\\\Image\\\\farm.jpg").getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(backgroundLabel);
+		
 		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
 		reset.setText("Normalreset");
-		reset.setBounds(0, 0, 62, 60);
+		reset.setBounds(0, 0, 58, 60);
 		rabbitbtn.add(reset);
 		
 		JPanel minepanel = new JPanel();
 		minepanel.setBackground(Color.PINK);
 		minepanel.setBounds(12, 112, 500, 375);
-		frame.getContentPane().add(minepanel);
+		backgroundLabel.add(minepanel);
 		minepanel.setLayout(new GridLayout(15,20));
-		
-		JLabel scoreLabel = new JLabel(String.valueOf(score));
-		scoreLabel.setBounds(621, 145, 167, 62);
-		frame.getContentPane().add(scoreLabel);
-		scoreLabel.setBackground(Color.WHITE);
-		scoreLabel.setFont(new Font("굴림", Font.PLAIN, 31));
-		
-		JPanel noralPanel = new JPanel();
-		noralPanel.setLayout(null);
-		noralPanel.setBackground(Color.YELLOW);
-		noralPanel.setBounds(621, 357, 167, 60);
-		frame.getContentPane().add(noralPanel);
-		
-		JButton notmalBtn = new JButton("Normal");
-		notmalBtn.setFont(new Font("굴림", Font.PLAIN, 19));
-		notmalBtn.setBounds(0, 0, 167, 60);
-		noralPanel.add(notmalBtn);
-		
-		JPanel EasyPanel = new JPanel();
-		EasyPanel.setLayout(null);
-		EasyPanel.setBackground(Color.YELLOW);
-		EasyPanel.setBounds(621, 287, 167, 60);
-		frame.getContentPane().add(EasyPanel);
-		
-		JButton EastBtn = new JButton("Easy");
-		EastBtn.setFont(new Font("굴림", Font.PLAIN, 19));
-		EastBtn.setBounds(0, 0, 167, 60);
-		EasyPanel.add(EastBtn);
-		
-		JPanel hardPanel = new JPanel();
-		hardPanel.setLayout(null);
-		hardPanel.setBackground(Color.YELLOW);
-		hardPanel.setBounds(621, 427, 167, 60);
-		frame.getContentPane().add(hardPanel);
-		
-		JButton hardBtn = new JButton("Hard");
-		hardBtn.setFont(new Font("굴림", Font.PLAIN, 19));
-		hardBtn.setBounds(0, 0, 167, 60);
-		hardPanel.add(hardBtn);
-		
-		JLabel timerLabel = new JLabel("Start!");
-		timerLabel.setFont(new Font("굴림", Font.PLAIN, 30));
-		timerLabel.setBounds(621, 217, 167, 60);
-		frame.getContentPane().add(timerLabel);
 		
 		JPanel logoPanel = new JPanel();
 		logoPanel.setBounds(631, 25, 167, 62);
-		frame.getContentPane().add(logoPanel);
+		backgroundLabel.add(logoPanel);
 		logoPanel.setLayout(null);
 		
 		JLabel logoLabel = new JLabel("Happy Banny");
@@ -136,6 +105,72 @@ public class SingleNormalUI {
 		logoPanel.add(logoLabel);
 		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
 		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JLabel scoreLabel = new JLabel(String.valueOf(score));
+		backgroundLabel.add(scoreLabel);
+		scoreLabel.setBounds(623, 117, 167, 62);
+		scoreLabel.setBackground(Color.WHITE);
+		scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
+		
+		JLabel timerLabel = new JLabel("Start!");
+		backgroundLabel.add(timerLabel);
+		timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
+		timerLabel.setBounds(623, 189, 167, 60);
+		
+		JPanel EasyPanel = new JPanel();
+		backgroundLabel.add(EasyPanel);
+		EasyPanel.setLayout(null);
+		EasyPanel.setBackground(Color.YELLOW);
+		EasyPanel.setBounds(623, 259, 167, 60);
+		
+		JButton EastBtn = new JButton("Easy");
+		EastBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+		EastBtn.setBounds(0, 0, 167, 60);
+		EasyPanel.add(EastBtn);
+		
+		JPanel noralPanel = new JPanel();
+		backgroundLabel.add(noralPanel);
+		noralPanel.setLayout(null);
+		noralPanel.setBackground(Color.YELLOW);
+		noralPanel.setBounds(623, 341, 167, 60);
+		
+		JButton notmalBtn = new JButton("Normal");
+		notmalBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+		notmalBtn.setBounds(0, 0, 167, 60);
+		noralPanel.add(notmalBtn);
+		
+		JPanel hardPanel = new JPanel();
+		backgroundLabel.add(hardPanel);
+		hardPanel.setLayout(null);
+		hardPanel.setBackground(Color.YELLOW);
+		hardPanel.setBounds(623, 424, 167, 60);
+		
+		JButton hardBtn = new JButton("Hard");
+		hardBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+		hardBtn.setBounds(0, 0, 167, 60);
+		hardPanel.add(hardBtn);
+		hardBtn.addActionListener(new EventHandler());
+		hardBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+		notmalBtn.addActionListener(new EventHandler());
+		notmalBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+		
+		EastBtn.addActionListener(new EventHandler());
+		EastBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
 		
 		
 		for(int i=0;i<20;i++)
@@ -160,28 +195,6 @@ public class SingleNormalUI {
         
         Timer timer = new Timer(1000, timerAction); // 1초마다 실행
         timer.start();
-		
-		EastBtn.addActionListener(new EventHandler());
-		EastBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-		notmalBtn.addActionListener(new EventHandler());
-		notmalBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-		hardBtn.addActionListener(new EventHandler());
-		hardBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
 		
 		reset.addActionListener(new EventHandler());
 		reset.addActionListener(new ActionListener() {

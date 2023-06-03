@@ -3,7 +3,9 @@ package testest;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -68,6 +70,17 @@ public class SingleHardUI {
 		frame.getContentPane().add(rabbitPanel);
 		rabbitPanel.setLayout(null);
 		
+		JLabel backgroundLabel = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = new ImageIcon("C:\\\\Users\\\\User\\\\eclipse-workspace\\\\testest\\\\Image\\\\farm.jpg").getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(backgroundLabel);
+		
 		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
 		reset.setText("Hardreset");
 		reset.setBounds(0, 0, 58, 60);
@@ -77,7 +90,7 @@ public class SingleHardUI {
 		JPanel logoPanel = new JPanel();
 		logoPanel.setBackground(Color.YELLOW);
 		logoPanel.setBounds(621, 10, 167, 62);
-		frame.getContentPane().add(logoPanel);
+		backgroundLabel.add(logoPanel);
 		logoPanel.setLayout(null);
 		
 		JLabel logoLabel = new JLabel("Happy Banny");
@@ -89,23 +102,23 @@ public class SingleHardUI {
 		JPanel minePanel = new JPanel();
 		minePanel.setBackground(Color.PINK);
 		minePanel.setBounds(12, 112, 600, 400);
-		frame.getContentPane().add(minePanel);
+		backgroundLabel.add(minePanel);
 		minePanel.setLayout(new GridLayout(20,30));
 		
 		JLabel scoreLabel = new JLabel(String.valueOf(score));
 		scoreLabel.setBounds(641, 112, 177, 60);
-		frame.getContentPane().add(scoreLabel);
+		backgroundLabel.add(scoreLabel);
 		scoreLabel.setBackground(Color.WHITE);
-		scoreLabel.setFont(new Font("굴림", Font.PLAIN, 31));
+		scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		
 		JPanel normalPanel = new JPanel();
 		normalPanel.setLayout(null);
 		normalPanel.setBackground(Color.YELLOW);
 		normalPanel.setBounds(641, 355, 177, 60);
-		frame.getContentPane().add(normalPanel);
+		backgroundLabel.add(normalPanel);
 		
 		JButton normalBtn = new JButton("Normal");
-		normalBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		normalBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		normalBtn.setBounds(0, 0, 177, 60);
 		normalPanel.add(normalBtn);
 		
@@ -113,27 +126,27 @@ public class SingleHardUI {
 		hardPanel.setLayout(null);
 		hardPanel.setBackground(Color.YELLOW);
 		hardPanel.setBounds(641, 452, 177, 60);
-		frame.getContentPane().add(hardPanel);
+		backgroundLabel.add(hardPanel);
 		
 		JButton hardBtn = new JButton("Hard");
-		hardBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		hardBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		hardBtn.setBounds(0, 0, 177, 60);
 		hardPanel.add(hardBtn);
 		
 		JLabel timerLabel = new JLabel("Start!");
-		timerLabel.setFont(new Font("굴림", Font.PLAIN, 30));
+		timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		timerLabel.setBounds(641, 182, 177, 60);
-		frame.getContentPane().add(timerLabel);
+		backgroundLabel.add(timerLabel);
 		
 		JPanel easyPanel = new JPanel();
 		easyPanel.setBounds(641, 261, 177, 60);
-		frame.getContentPane().add(easyPanel);
+		backgroundLabel.add(easyPanel);
 		easyPanel.setLayout(null);
 		
 		JButton easyBtn = new JButton("Easy");
 		easyBtn.setBounds(0, 0, 177, 60);
 		easyPanel.add(easyBtn);
-		easyBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		easyBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		
 		easyBtn.addActionListener(new EventHandler());
 		easyBtn.addActionListener(new ActionListener() {
