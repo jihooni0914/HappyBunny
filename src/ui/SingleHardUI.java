@@ -3,7 +3,9 @@ package ui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
@@ -62,50 +65,48 @@ public class SingleHardUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel rabbitPanel = new JPanel();
-		rabbitPanel.setBackground(new Color(255, 255, 255));
-		rabbitPanel.setBounds(260, 39, 62, 60);
-		frame.getContentPane().add(rabbitPanel);
-		rabbitPanel.setLayout(null);
+		JLabel backgroundLabel = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = new ImageIcon("images/farm.jpg").getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(backgroundLabel);
 		
-		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
-		reset.setText("Hardreset");
-		reset.setBounds(0, 0, 58, 60);
-		rabbitPanel.add(reset);
-		reset.setIcon(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
+
 		
-		JPanel logoPanel = new JPanel();
-		logoPanel.setBackground(Color.YELLOW);
-		logoPanel.setBounds(621, 10, 167, 62);
-		frame.getContentPane().add(logoPanel);
-		logoPanel.setLayout(null);
-		
-		JLabel logoLabel = new JLabel("Happy Banny");
-		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		logoLabel.setBounds(0, 0, 167, 62);
-		logoPanel.add(logoLabel);
+		ImageIcon logo = new ImageIcon("images/test.png");
+		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(logoimage);
+
+		JLabel logoLabel = new JLabel(logo);
+		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
+		logoLabel.setBounds(626, 32, 185, 69);
+		backgroundLabel.add(logoLabel);
 		
 		JPanel minePanel = new JPanel();
 		minePanel.setBackground(Color.PINK);
 		minePanel.setBounds(12, 112, 600, 400);
-		frame.getContentPane().add(minePanel);
+		backgroundLabel.add(minePanel);
 		minePanel.setLayout(new GridLayout(20,30));
 		
 		JLabel scoreLabel = new JLabel(String.valueOf(score));
 		scoreLabel.setBounds(641, 112, 177, 60);
-		frame.getContentPane().add(scoreLabel);
+		backgroundLabel.add(scoreLabel);
 		scoreLabel.setBackground(Color.WHITE);
-		scoreLabel.setFont(new Font("굴림", Font.PLAIN, 31));
+		scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		
 		JPanel normalPanel = new JPanel();
 		normalPanel.setLayout(null);
 		normalPanel.setBackground(Color.YELLOW);
 		normalPanel.setBounds(641, 355, 177, 60);
-		frame.getContentPane().add(normalPanel);
+		backgroundLabel.add(normalPanel);
 		
 		JButton normalBtn = new JButton("Normal");
-		normalBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		normalBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		normalBtn.setBounds(0, 0, 177, 60);
 		normalPanel.add(normalBtn);
 		
@@ -113,27 +114,52 @@ public class SingleHardUI {
 		hardPanel.setLayout(null);
 		hardPanel.setBackground(Color.YELLOW);
 		hardPanel.setBounds(641, 452, 177, 60);
-		frame.getContentPane().add(hardPanel);
+		backgroundLabel.add(hardPanel);
 		
 		JButton hardBtn = new JButton("Hard");
-		hardBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		hardBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		hardBtn.setBounds(0, 0, 177, 60);
 		hardPanel.add(hardBtn);
 		
 		JLabel timerLabel = new JLabel("Start!");
-		timerLabel.setFont(new Font("굴림", Font.PLAIN, 30));
+		timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		timerLabel.setBounds(641, 182, 177, 60);
-		frame.getContentPane().add(timerLabel);
+		backgroundLabel.add(timerLabel);
 		
 		JPanel easyPanel = new JPanel();
 		easyPanel.setBounds(641, 261, 177, 60);
-		frame.getContentPane().add(easyPanel);
+		backgroundLabel.add(easyPanel);
 		easyPanel.setLayout(null);
 		
 		JButton easyBtn = new JButton("Easy");
 		easyBtn.setBounds(0, 0, 177, 60);
 		easyPanel.add(easyBtn);
-		easyBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		easyBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+		
+		ImageIcon imageIcon = new ImageIcon("images/rabbit.png");
+		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		
+				JButton rabbitBtn = new JButton(imageIcon);
+				backgroundLabel.add(rabbitBtn);
+				rabbitBtn.setBounds(274, 34, 62, 62);
+				rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
+				rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
+				rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+				rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+				rabbitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	   frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+				rabbitBtn.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				    	SingleHardUI window = new SingleHardUI();
+    			window.frame.setVisible(true);
+				    }
+				});
 		
 		easyBtn.addActionListener(new EventHandler());
 		easyBtn.addActionListener(new ActionListener() {
@@ -175,13 +201,6 @@ public class SingleHardUI {
         });
 		hardBtn.addActionListener(new EventHandler());
 		hardBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-		reset.addActionListener(new EventHandler());
-		reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 

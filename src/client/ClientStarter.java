@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import ui.Login;
+import ui.*;
 
 public class ClientStarter {
 	private static int PORT = 4885;
@@ -19,6 +19,7 @@ public class ClientStarter {
 	private LinkedList<User> users;
 	
 	private LoginUI login;
+	private Login loginUI;
 	
 	public static void main(String[] args) {
 		new ClientStarter();
@@ -35,6 +36,7 @@ public class ClientStarter {
 	
 	private void init() {
 		login = new LoginUI();
+		loginUI = new Login();
 	}
 	
 	private void setListeners() {
@@ -64,10 +66,21 @@ public class ClientStarter {
 				writer.println("hahaha\n");
 			}
 		});
+		
+		loginUI.multi.button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String username = loginUI.multi.textbox.getText();
+				writer.println("login/" + username);
+			}
+		});
+           
 	}
 	
 	private void setUIVisible() {
-		login.setVisible(true);
+//		login.setVisible(true);
+		loginUI.frame.setVisible(true);
 	}
 	
 	private void printUsers() {

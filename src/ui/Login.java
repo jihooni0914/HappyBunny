@@ -1,26 +1,14 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 public class Login {
 
-    JFrame frame;
-//    public MultiLoginFrame multi;
+    public JFrame frame;
+    public MultiLoginFrame multi;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -42,32 +30,43 @@ public class Login {
     }
 
     private void initialize() {
-
         frame = new JFrame();
         frame.setAlwaysOnTop(true);
         frame.setBounds(100, 100, 720, 480);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        
+        multi = new MultiLoginFrame();
 
+        JLabel backgroundLabel = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = new ImageIcon("images/farm.jpg").getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        frame.getContentPane().add(backgroundLabel);
 
         JButton button = new JButton("SinglePlay");
         button.setText("SinglePlay");
-        button.setFont(new Font("Maiandra GD", Font.PLAIN, 20));
+        button.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
         button.setBounds(10, 274, 250, 85);
-        frame.getContentPane().add(button);
+        backgroundLabel.add(button);
 
         JLabel lblNewLabel = new JLabel("Happy Banny");
         lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblNewLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 50));
         lblNewLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNewLabel.setBounds(190, 41, 321, 150);
-        frame.getContentPane().add(lblNewLabel);
+        backgroundLabel.add(lblNewLabel);
 
         JButton button2 = new JButton("MultiPlay");
-        button2.setFont(new Font("Maiandra GD", Font.PLAIN, 20));
+        button2.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
         button2.setBounds(444, 274, 250, 85);
-        frame.getContentPane().add(button2);
+        backgroundLabel.add(button2);
 
         button.addActionListener(new EventHandler());
         button.addActionListener(new ActionListener() {
@@ -80,8 +79,6 @@ public class Login {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MultiLoginFrame multi = new MultiLoginFrame();
-                
                 multi.button.addActionListener(new ActionListener() {
         			@Override
         			public void actionPerformed(ActionEvent e) {
@@ -98,27 +95,4 @@ public class Login {
     }
 }
 
-class MultiLoginFrame extends JFrame {
-	public JButton button;
-	public JTextField textbox;
-	
-	public MultiLoginFrame() {
-		setBounds(100, 100, 300, 200);
-        setLocationRelativeTo(null);
-        setAlwaysOnTop(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Login");
-		
-		setLayout(new GridLayout(3, 1, 10, 20));
-		
-		JLabel label = new JLabel("ID: ");
-		add(label);
-		
-		textbox = new JTextField();
-		add(textbox);
-		
-		button = new JButton("Login");
-		add(button);
-	}
-}
 
