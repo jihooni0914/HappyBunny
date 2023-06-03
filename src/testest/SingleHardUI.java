@@ -62,81 +62,81 @@ public class SingleHardUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBounds(260, 39, 62, 60);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel rabbitPanel = new JPanel();
+		rabbitPanel.setBackground(new Color(255, 255, 255));
+		rabbitPanel.setBounds(260, 39, 62, 60);
+		frame.getContentPane().add(rabbitPanel);
+		rabbitPanel.setLayout(null);
 		
 		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
 		reset.setText("Hardreset");
 		reset.setBounds(0, 0, 58, 60);
-		panel_1.add(reset);
+		rabbitPanel.add(reset);
 		reset.setIcon(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.YELLOW);
-		panel_2.setBounds(621, 10, 167, 62);
-		frame.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
+		JPanel logoPanel = new JPanel();
+		logoPanel.setBackground(Color.YELLOW);
+		logoPanel.setBounds(621, 10, 167, 62);
+		frame.getContentPane().add(logoPanel);
+		logoPanel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Happy Banny");
-		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		lblNewLabel_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 0, 167, 62);
-		panel_2.add(lblNewLabel_1);
+		JLabel logoLabel = new JLabel("Happy Banny");
+		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
+		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		logoLabel.setBounds(0, 0, 167, 62);
+		logoPanel.add(logoLabel);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.PINK);
-		panel_3.setBounds(12, 112, 600, 400);
-		frame.getContentPane().add(panel_3);
-		panel_3.setLayout(new GridLayout(20,30));
+		JPanel minePanel = new JPanel();
+		minePanel.setBackground(Color.PINK);
+		minePanel.setBounds(12, 112, 600, 400);
+		frame.getContentPane().add(minePanel);
+		minePanel.setLayout(new GridLayout(20,30));
 		
-		JLabel lblNewLabel = new JLabel(String.valueOf(score));
-		lblNewLabel.setBounds(641, 112, 177, 60);
-		frame.getContentPane().add(lblNewLabel);
-		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 31));
+		JLabel scoreLabel = new JLabel(String.valueOf(score));
+		scoreLabel.setBounds(641, 112, 177, 60);
+		frame.getContentPane().add(scoreLabel);
+		scoreLabel.setBackground(Color.WHITE);
+		scoreLabel.setFont(new Font("굴림", Font.PLAIN, 31));
 		
-		JPanel panel_2_2 = new JPanel();
-		panel_2_2.setLayout(null);
-		panel_2_2.setBackground(Color.YELLOW);
-		panel_2_2.setBounds(641, 355, 177, 60);
-		frame.getContentPane().add(panel_2_2);
+		JPanel normalPanel = new JPanel();
+		normalPanel.setLayout(null);
+		normalPanel.setBackground(Color.YELLOW);
+		normalPanel.setBounds(641, 355, 177, 60);
+		frame.getContentPane().add(normalPanel);
 		
-		JButton btnNormal = new JButton("Normal");
-		btnNormal.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnNormal.setBounds(0, 0, 177, 60);
-		panel_2_2.add(btnNormal);
+		JButton normalBtn = new JButton("Normal");
+		normalBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		normalBtn.setBounds(0, 0, 177, 60);
+		normalPanel.add(normalBtn);
 		
-		JPanel panel_2_2_2 = new JPanel();
-		panel_2_2_2.setLayout(null);
-		panel_2_2_2.setBackground(Color.YELLOW);
-		panel_2_2_2.setBounds(641, 452, 177, 60);
-		frame.getContentPane().add(panel_2_2_2);
+		JPanel hardPanel = new JPanel();
+		hardPanel.setLayout(null);
+		hardPanel.setBackground(Color.YELLOW);
+		hardPanel.setBounds(641, 452, 177, 60);
+		frame.getContentPane().add(hardPanel);
 		
-		JButton btnHard = new JButton("Hard");
-		btnHard.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnHard.setBounds(0, 0, 177, 60);
-		panel_2_2_2.add(btnHard);
+		JButton hardBtn = new JButton("Hard");
+		hardBtn.setFont(new Font("굴림", Font.PLAIN, 19));
+		hardBtn.setBounds(0, 0, 177, 60);
+		hardPanel.add(hardBtn);
 		
-		JLabel lblNewLabel_2 = new JLabel("Start!");
-		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(641, 182, 177, 60);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel timerLabel = new JLabel("Start!");
+		timerLabel.setFont(new Font("굴림", Font.PLAIN, 30));
+		timerLabel.setBounds(641, 182, 177, 60);
+		frame.getContentPane().add(timerLabel);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(641, 261, 177, 60);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel easyPanel = new JPanel();
+		easyPanel.setBounds(641, 261, 177, 60);
+		frame.getContentPane().add(easyPanel);
+		easyPanel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Easy");
-		btnNewButton.setBounds(0, 0, 177, 60);
-		panel.add(btnNewButton);
-		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 19));
+		JButton easyBtn = new JButton("Easy");
+		easyBtn.setBounds(0, 0, 177, 60);
+		easyPanel.add(easyBtn);
+		easyBtn.setFont(new Font("굴림", Font.PLAIN, 19));
 		
-		btnNewButton.addActionListener(new EventHandler());
-		btnNewButton.addActionListener(new ActionListener() {
+		easyBtn.addActionListener(new EventHandler());
+		easyBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 
@@ -149,7 +149,7 @@ public class SingleHardUI {
 			for(int j=0;j<20;j++)
 			{
 				but[i][j] = new myButton();
-				panel_3.add(but[i][j]);
+				minePanel.add(but[i][j]);
 			}
 		}
 		
@@ -159,22 +159,22 @@ public class SingleHardUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 counter++;
-                lblNewLabel_2.setText("" + counter);
-                lblNewLabel_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                timerLabel.setText("" + counter);
+                timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             }
         };
         
         Timer timer = new Timer(1000, timerAction); // 1초마다 실행
         timer.start();
-		btnNormal.addActionListener(new EventHandler());
-		btnNormal.addActionListener(new ActionListener() {
+		normalBtn.addActionListener(new EventHandler());
+		normalBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 
             }
         });
-		btnHard.addActionListener(new EventHandler());
-		btnHard.addActionListener(new ActionListener() {
+		hardBtn.addActionListener(new EventHandler());
+		hardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 
