@@ -1,9 +1,11 @@
-package testest;
+package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +14,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-public class login {
+public class Login {
 
     JFrame frame;
+//    public MultiLoginFrame multi;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    login window = new login();
+                    Login window = new Login();
                     window.frame.setVisible(true);
+                    
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -30,7 +37,7 @@ public class login {
         });
     }
 
-    public login() {
+    public Login() {
         initialize();
     }
 
@@ -73,9 +80,45 @@ public class login {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // Hide the frame
+                MultiLoginFrame multi = new MultiLoginFrame();
+                
+                multi.button.addActionListener(new ActionListener() {
+        			@Override
+        			public void actionPerformed(ActionEvent e) {
+        				SingleNormalUI window = new SingleNormalUI();
+        				window.frame.setVisible(true);
+        				multi.setVisible(false);
+        				frame.setVisible(false);
+        			}
+        		});
+        		
+                multi.setVisible(true);
             }
         });
     }
+}
+
+class MultiLoginFrame extends JFrame {
+	public JButton button;
+	public JTextField textbox;
+	
+	public MultiLoginFrame() {
+		setBounds(100, 100, 300, 200);
+        setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("Login");
+		
+		setLayout(new GridLayout(3, 1, 10, 20));
+		
+		JLabel label = new JLabel("ID: ");
+		add(label);
+		
+		textbox = new JTextField();
+		add(textbox);
+		
+		button = new JButton("Login");
+		add(button);
+	}
 }
 
