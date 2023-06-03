@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
@@ -59,27 +60,27 @@ public class SingleNormalUI {
 		int score = 10000;
 		myButton but[][] = new myButton[20][15];
 		frame = new JFrame();
-		frame.setBounds(100, 100, 867, 559);
+		frame.setBounds(100, 100, 844, 559);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.CYAN);
-		panel_1.setBounds(223, 10, 75, 62);
+		panel_1.setBounds(216, 25, 58, 60);
 		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
+		reset.setText("Normalreset");
+		reset.setBounds(0, 0, 62, 60);
+		panel_1.add(reset);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.YELLOW);
-		panel_2.setBounds(621, 10, 167, 62);
+		panel_2.setBounds(631, 23, 167, 62);
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("Happy Banny");
-		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		lblNewLabel_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 0, 167, 62);
-		panel_2.add(lblNewLabel_1);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.PINK);
@@ -88,7 +89,7 @@ public class SingleNormalUI {
 		panel_3.setLayout(new GridLayout(15,20));
 		
 		JLabel lblNewLabel = new JLabel(String.valueOf(score));
-		lblNewLabel.setBounds(356, 10, 167, 62);
+		lblNewLabel.setBounds(621, 145, 167, 62);
 		frame.getContentPane().add(lblNewLabel);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 31));
@@ -96,40 +97,46 @@ public class SingleNormalUI {
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setLayout(null);
 		panel_2_2.setBackground(Color.YELLOW);
-		panel_2_2.setBounds(641, 243, 116, 39);
+		panel_2_2.setBounds(621, 357, 167, 60);
 		frame.getContentPane().add(panel_2_2);
 		
 		JButton btnNormal = new JButton("Normal");
 		btnNormal.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnNormal.setBounds(0, 0, 116, 39);
+		btnNormal.setBounds(0, 0, 167, 60);
 		panel_2_2.add(btnNormal);
 		
 		JPanel panel_2_2_1 = new JPanel();
 		panel_2_2_1.setLayout(null);
 		panel_2_2_1.setBackground(Color.YELLOW);
-		panel_2_2_1.setBounds(641, 183, 116, 39);
+		panel_2_2_1.setBounds(621, 287, 167, 60);
 		frame.getContentPane().add(panel_2_2_1);
 		
 		JButton btnNewButton = new JButton("Easy");
 		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnNewButton.setBounds(0, 0, 116, 39);
+		btnNewButton.setBounds(0, 0, 167, 60);
 		panel_2_2_1.add(btnNewButton);
 		
 		JPanel panel_2_2_2 = new JPanel();
 		panel_2_2_2.setLayout(null);
 		panel_2_2_2.setBackground(Color.YELLOW);
-		panel_2_2_2.setBounds(641, 303, 116, 39);
+		panel_2_2_2.setBounds(621, 427, 167, 60);
 		frame.getContentPane().add(panel_2_2_2);
 		
 		JButton btnHard = new JButton("Hard");
 		btnHard.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnHard.setBounds(0, 0, 116, 39);
+		btnHard.setBounds(0, 0, 167, 60);
 		panel_2_2_2.add(btnHard);
 		
-		JLabel lblNewLabel_2 = new JLabel("0");
+		JLabel lblNewLabel_2 = new JLabel("Start!");
 		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(12, 10, 125, 62);
+		lblNewLabel_2.setBounds(621, 217, 167, 60);
 		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("Happy Banny");
+		lblNewLabel_1.setBounds(631, 25, 167, 62);
+		frame.getContentPane().add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
+		lblNewLabel_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		
 		
 		for(int i=0;i<20;i++)
@@ -148,6 +155,7 @@ public class SingleNormalUI {
             public void actionPerformed(ActionEvent e) {
                 counter++;
                 lblNewLabel_2.setText("" + counter);
+                lblNewLabel_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             }
         };
         
@@ -170,6 +178,14 @@ public class SingleNormalUI {
         });
 		btnHard.addActionListener(new EventHandler());
 		btnHard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+		
+		reset.addActionListener(new EventHandler());
+		reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 

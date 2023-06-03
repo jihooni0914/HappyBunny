@@ -28,5 +28,20 @@ public class EventHandler implements ActionListener {
 			SingleHardUI window = new SingleHardUI();
 			window.frame.setVisible(true);
 		}
+		else if (arg0.getActionCommand().equals("Easyreset"))
+		{
+			SingleEasyUI window = new SingleEasyUI();
+			window.frame.setVisible(true);
+		}
+		else if (arg0.getActionCommand().equals("Normalreset"))
+		{
+			SingleNormalUI window = new SingleNormalUI();
+			window.frame.setVisible(true);
+		}
+		else if (arg0.getActionCommand().equals("Hardreset"))
+		{
+			SingleHardUI window = new SingleHardUI();
+			window.frame.setVisible(true);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.ImageIcon;
 
 public class SingleHardUI {
 
@@ -62,9 +63,16 @@ public class SingleHardUI {
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.CYAN);
-		panel_1.setBounds(223, 10, 75, 62);
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(260, 39, 62, 60);
 		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
+		reset.setText("Hardreset");
+		reset.setBounds(0, 0, 58, 60);
+		panel_1.add(reset);
+		reset.setIcon(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.YELLOW);
@@ -85,7 +93,7 @@ public class SingleHardUI {
 		panel_3.setLayout(new GridLayout(20,30));
 		
 		JLabel lblNewLabel = new JLabel(String.valueOf(score));
-		lblNewLabel.setBounds(356, 10, 167, 62);
+		lblNewLabel.setBounds(641, 112, 177, 60);
 		frame.getContentPane().add(lblNewLabel);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 31));
@@ -93,40 +101,47 @@ public class SingleHardUI {
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setLayout(null);
 		panel_2_2.setBackground(Color.YELLOW);
-		panel_2_2.setBounds(641, 243, 116, 39);
+		panel_2_2.setBounds(641, 355, 177, 60);
 		frame.getContentPane().add(panel_2_2);
 		
 		JButton btnNormal = new JButton("Normal");
 		btnNormal.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnNormal.setBounds(0, 0, 116, 39);
+		btnNormal.setBounds(0, 0, 177, 60);
 		panel_2_2.add(btnNormal);
-		
-		JPanel panel_2_2_1 = new JPanel();
-		panel_2_2_1.setLayout(null);
-		panel_2_2_1.setBackground(Color.YELLOW);
-		panel_2_2_1.setBounds(641, 183, 116, 39);
-		frame.getContentPane().add(panel_2_2_1);
-		
-		JButton btnNewButton = new JButton("Easy");
-		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnNewButton.setBounds(0, 0, 116, 39);
-		panel_2_2_1.add(btnNewButton);
 		
 		JPanel panel_2_2_2 = new JPanel();
 		panel_2_2_2.setLayout(null);
 		panel_2_2_2.setBackground(Color.YELLOW);
-		panel_2_2_2.setBounds(641, 303, 116, 39);
+		panel_2_2_2.setBounds(641, 452, 177, 60);
 		frame.getContentPane().add(panel_2_2_2);
 		
 		JButton btnHard = new JButton("Hard");
 		btnHard.setFont(new Font("굴림", Font.PLAIN, 19));
-		btnHard.setBounds(0, 0, 116, 39);
+		btnHard.setBounds(0, 0, 177, 60);
 		panel_2_2_2.add(btnHard);
 		
-		JLabel lblNewLabel_2 = new JLabel("0");
+		JLabel lblNewLabel_2 = new JLabel("Start!");
 		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(12, 10, 125, 62);
+		lblNewLabel_2.setBounds(641, 182, 177, 60);
 		frame.getContentPane().add(lblNewLabel_2);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(641, 261, 177, 60);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Easy");
+		btnNewButton.setBounds(0, 0, 177, 60);
+		panel.add(btnNewButton);
+		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 19));
+		
+		btnNewButton.addActionListener(new EventHandler());
+		btnNewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
 		
 		
 		for(int i=0;i<30;i++)
@@ -145,19 +160,12 @@ public class SingleHardUI {
             public void actionPerformed(ActionEvent e) {
                 counter++;
                 lblNewLabel_2.setText("" + counter);
+                lblNewLabel_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             }
         };
         
         Timer timer = new Timer(1000, timerAction); // 1초마다 실행
         timer.start();
-		
-		btnNewButton.addActionListener(new EventHandler());
-		btnNewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
 		btnNormal.addActionListener(new EventHandler());
 		btnNormal.addActionListener(new ActionListener() {
             @Override
@@ -167,6 +175,13 @@ public class SingleHardUI {
         });
 		btnHard.addActionListener(new EventHandler());
 		btnHard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+		reset.addActionListener(new EventHandler());
+		reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 
