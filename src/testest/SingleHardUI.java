@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
@@ -64,12 +65,6 @@ public class SingleHardUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel rabbitPanel = new JPanel();
-		rabbitPanel.setBackground(new Color(255, 255, 255));
-		rabbitPanel.setBounds(260, 39, 62, 60);
-		frame.getContentPane().add(rabbitPanel);
-		rabbitPanel.setLayout(null);
-		
 		JLabel backgroundLabel = new JLabel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -81,23 +76,16 @@ public class SingleHardUI {
 		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(backgroundLabel);
 		
-		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
-		reset.setText("Hardreset");
-		reset.setBounds(0, 0, 58, 60);
-		rabbitPanel.add(reset);
-		reset.setIcon(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
+
 		
-		JPanel logoPanel = new JPanel();
-		logoPanel.setBackground(Color.YELLOW);
-		logoPanel.setBounds(621, 10, 167, 62);
-		backgroundLabel.add(logoPanel);
-		logoPanel.setLayout(null);
-		
-		JLabel logoLabel = new JLabel("Happy Banny");
-		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		logoLabel.setBounds(0, 0, 167, 62);
-		logoPanel.add(logoLabel);
+		ImageIcon logo = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\test.png");
+		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(logoimage);
+
+		JLabel logoLabel = new JLabel(logo);
+		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
+		logoLabel.setBounds(626, 32, 185, 69);
+		backgroundLabel.add(logoLabel);
 		
 		JPanel minePanel = new JPanel();
 		minePanel.setBackground(Color.PINK);
@@ -148,6 +136,31 @@ public class SingleHardUI {
 		easyPanel.add(easyBtn);
 		easyBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
 		
+		ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png");
+		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		
+				JButton rabbitBtn = new JButton(imageIcon);
+				backgroundLabel.add(rabbitBtn);
+				rabbitBtn.setBounds(274, 34, 62, 62);
+				rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
+				rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
+				rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+				rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+				rabbitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	   frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+				rabbitBtn.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				    	SingleHardUI window = new SingleHardUI();
+    			window.frame.setVisible(true);
+				    }
+				});
+		
 		easyBtn.addActionListener(new EventHandler());
 		easyBtn.addActionListener(new ActionListener() {
             @Override
@@ -188,13 +201,6 @@ public class SingleHardUI {
         });
 		hardBtn.addActionListener(new EventHandler());
 		hardBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-		reset.addActionListener(new EventHandler());
-		reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); // 창 안보이게 하기 

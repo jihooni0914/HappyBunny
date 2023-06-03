@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import java.awt.GridLayout;
@@ -67,12 +68,6 @@ public class SingleNormalUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel rabbitbtn = new JPanel();
-		rabbitbtn.setBackground(Color.CYAN);
-		rabbitbtn.setBounds(216, 25, 58, 60);
-		frame.getContentPane().add(rabbitbtn);
-		rabbitbtn.setLayout(null);
-		
 		JLabel backgroundLabel = new JLabel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -84,10 +79,17 @@ public class SingleNormalUI {
 		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(backgroundLabel);
 		
-		JButton reset = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
-		reset.setText("Normalreset");
-		reset.setBounds(0, 0, 58, 60);
-		rabbitbtn.add(reset);
+		ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png");
+		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+
+		JButton rabbitBtn = new JButton(imageIcon);
+		rabbitBtn.setBounds(224, 35, 62, 62);
+		backgroundLabel.add(rabbitBtn);
+		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
+		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
 		
 		JPanel minepanel = new JPanel();
 		minepanel.setBackground(Color.PINK);
@@ -95,16 +97,14 @@ public class SingleNormalUI {
 		backgroundLabel.add(minepanel);
 		minepanel.setLayout(new GridLayout(15,20));
 		
-		JPanel logoPanel = new JPanel();
-		logoPanel.setBounds(631, 25, 167, 62);
-		backgroundLabel.add(logoPanel);
-		logoPanel.setLayout(null);
-		
-		JLabel logoLabel = new JLabel("Happy Banny");
-		logoLabel.setBounds(0, 0, 167, 62);
-		logoPanel.add(logoLabel);
-		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		ImageIcon logo = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\test.png");
+		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(logoimage);
+
+		JLabel logoLabel = new JLabel(logo);
+		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
+		logoLabel.setBounds(626, 32, 185, 69);
+		backgroundLabel.add(logoLabel);
 		
 		JLabel scoreLabel = new JLabel(String.valueOf(score));
 		backgroundLabel.add(scoreLabel);
@@ -196,11 +196,17 @@ public class SingleNormalUI {
         Timer timer = new Timer(1000, timerAction); // 1초마다 실행
         timer.start();
 		
-		reset.addActionListener(new EventHandler());
-		reset.addActionListener(new ActionListener() {
+        rabbitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
+            	   frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+        rabbitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	SingleNormalUI window = new SingleNormalUI();
+    			window.frame.setVisible(true);
             }
         });
 		

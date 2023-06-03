@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import java.awt.Label;
+import javax.swing.Icon;
 
 public class SingleEasyUI {
 
@@ -72,20 +74,6 @@ public class SingleEasyUI {
         };
 		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(backgroundLabel);
-
-		
-		JPanel logoPanel = new JPanel();
-		logoPanel.setBackground(Color.YELLOW);
-		logoPanel.setBounds(621, 10, 167, 62);
-		backgroundLabel.add(logoPanel);
-		logoPanel.setLayout(null);
-		
-		JLabel logoLabel = new JLabel("Happy Banny");
-		logoLabel.setBackground(new Color(255, 255, 255));
-		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 19));
-		logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		logoLabel.setBounds(0, 0, 167, 62);
-		logoPanel.add(logoLabel);
 		
 		JPanel minePanel = new JPanel();
 		minePanel.setBackground(new Color(255, 255, 255));
@@ -144,17 +132,31 @@ public class SingleEasyUI {
 		timerLabel.setBounds(621, 188, 167, 69);
 		backgroundLabel.add(timerLabel);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(194, 34, 59, 62);
-		backgroundLabel.add(panel);
-		panel.setLayout(null);
+		ImageIcon rabbit = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png");
+		Image rabbitimage = rabbit.getImage().getScaledInstance(59, 62, Image.SCALE_SMOOTH);
+		rabbit = new ImageIcon(rabbitimage);
 		
-		JButton rabbitBtn = new JButton(new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png"));
-		rabbitBtn.setBounds(0, 0, 59, 62);
-		panel.add(rabbitBtn);
+		ImageIcon logo = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\test.png");
+		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(logoimage);
+
+		JLabel logoLabel = new JLabel(logo);
+		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
+		logoLabel.setBounds(626, 32, 185, 69);
+		backgroundLabel.add(logoLabel);
+		
+		ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\testest\\Image\\rabbit.png");
+		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+
+		JButton rabbitBtn = new JButton(imageIcon);
+		rabbitBtn.setBounds(231, 35, 62, 62);
+		backgroundLabel.add(rabbitBtn);
+		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
 		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
-	    rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
-		rabbitBtn.setText("Easyreset");
+		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+
 		
 		
 		
@@ -182,11 +184,20 @@ public class SingleEasyUI {
         
         Timer timer = new Timer(1000, timerAction); // 1초마다 실행
         timer.start();
-        rabbitBtn.addActionListener(new EventHandler());
+        
+        
+       
         rabbitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
+            	   frame.setVisible(false); // 창 안보이게 하기 
+            }
+        });
+        rabbitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	SingleEasyUI window = new SingleEasyUI();
+    			window.frame.setVisible(true);
             }
         });
 		
