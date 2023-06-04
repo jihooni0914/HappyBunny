@@ -45,11 +45,8 @@ public class SingleHardUI {
 		initialize();
 	}
 	
-	class myButton extends JButton
-	{
+	class myButton extends JButton{
 		private int flagint =0;
-		
-		
 	}
 
 	/**
@@ -87,7 +84,7 @@ public class SingleHardUI {
 		logoLabel.setBounds(626, 32, 185, 69);
 		backgroundLabel.add(logoLabel);
 		
-		JPanel minePanel = new JPanel();
+		Board minePanel = new Board();
 		minePanel.setBackground(Color.PINK);
 		minePanel.setBounds(12, 112, 600, 400);
 		backgroundLabel.add(minePanel);
@@ -164,16 +161,16 @@ public class SingleHardUI {
             }
         });
 		
-		
-		for(int i=0;i<30;i++)
-		{
-			for(int j=0;j<20;j++)
-			{
-				but[i][j] = new myButton();
-				minePanel.add(but[i][j]);
-			}
-		}
-		
+//		
+//		for(int i=0;i<30;i++)
+//		{
+//			for(int j=0;j<20;j++)
+//			{
+//				but[i][j] = new myButton();
+//				minePanel.add(but[i][j]);
+//			}
+//		}
+//		
 		ActionListener timerAction = new ActionListener() {
             int counter = 0;
             

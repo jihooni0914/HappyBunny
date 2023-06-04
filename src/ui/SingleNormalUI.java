@@ -27,7 +27,7 @@ public class SingleNormalUI {
 	JButton but[][] = new JButton[20][15];
 	private char[][] board = new char[20][15];
 	private int remainingCells;
-	private static final int MINES = 15;
+	private static final int MINES = 45;
 
 	/**
 	 * Launch the application.
@@ -66,6 +66,8 @@ public class SingleNormalUI {
             }
         }
 		placeMines();
+		setCellText();
+		printBoard();
 		remainingCells = 20 * 15 - MINES;
 		
 		
@@ -101,13 +103,13 @@ public class SingleNormalUI {
 		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
 		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
-
-		JPanel minepanel = new JPanel();
-		minepanel.setBackground(Color.PINK);
-		minepanel.setBounds(12, 112, 500, 375);
-		backgroundLabel.add(minepanel);
-		minepanel.setLayout(new GridLayout(15, 20));
-
+		
+		Board minePanel = new Board();
+		minePanel.setBackground(Color.PINK);
+		minePanel.setBounds(12, 112, 500, 375);
+		backgroundLabel.add(minePanel);
+		minePanel.setLayout(new GridLayout(15,20));
+		
 		ImageIcon logo = new ImageIcon("images/test.png");
 		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
 		logo = new ImageIcon(logoimage);
@@ -188,8 +190,9 @@ public class SingleNormalUI {
 				JButton button = new JButton();
 				button.setPreferredSize(new Dimension(50, 50));
 				button.addActionListener(new ButtonListener(i, j));
+				button.setFont(new Font("Maiandra GD", Font.PLAIN, 10));
 				but[i][j] = button;
-				minepanel.add(button);
+				minePanel.add(button);
 			}
 		}
 
@@ -248,12 +251,15 @@ public class SingleNormalUI {
 		remainingCells--;
 
 		if (board[row][col] == '0') {
+			but[row][col].setText("");
 			revealNeighbors(row, col);
 		}
-		
-		if (board[row][col] == '*') {
+		else if (board[row][col] == '*') {
 			gameOver(false);
-		} else if (remainingCells == 0) {
+		} else if (board[row][col] >= '1' && board[row][col] <= '9') {
+			
+		}
+		else if (remainingCells == 0) {
 			gameOver(true);
 		}
 	}
@@ -262,9 +268,21 @@ public class SingleNormalUI {
 		for (int i = row - 1; i <= row + 1; i++) {
 		    for (int j = col - 1; j <= col + 1; j++) {
 		        if (i >= 0 && i < 20 && j >= 0 && j < 15) {
-		            revealCell(i, j);
+		        	if (board[i][j] != '*') {
+		        		revealCell(i, j);		        		
+		        	}
 		        }
 		    }
+		}
+	
+	}
+	
+	private void printBoard() {
+		for (int i = 0; i < 20; i ++) {
+			for (int j = 0; j < 15; j ++) {
+				System.out.print(board[i][j] + " ");
+			}
+			System.out.println();
 		}
 	}
 
@@ -279,7 +297,39 @@ public class SingleNormalUI {
 			}
 		}
 	}
+	
+	private void setCellText() {
+		for (int i = 0; i < 20; i ++) {
+			for (int j = 0; j < 15; j ++) {
+				// mine 있는 cell은 건너뛰기
+				if (board[i][j] == '*') {
+					continue;
+				}
+				board[i][j] = countMines(i, j);
+			}
+		}
+	}
 
+	private char countMines(int row, int col) {
+		int count = 0;
+		
+		for (int i = row - 1; i <= row + 1; i ++) {
+			for (int j = col - 1; j <= col + 1; j ++) {
+				// 범위 벗어나면 continue
+				if (i < 0 || i >= 20 || j < 0 || j >= 15) {
+					continue;
+				}
+				
+				// 폭탄 있으면 count
+				if (board[i][j] == '*') {
+					count ++;
+				}
+			}
+		}
+		
+		return (char)('0' + count);
+	}
+	
 	private void gameOver(boolean win) {
 		if (win) {
             JOptionPane.showMessageDialog(frame, "Congratulations! You won the game.");
