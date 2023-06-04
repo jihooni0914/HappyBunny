@@ -72,7 +72,7 @@ public class SingleNormalUI {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image image = new ImageIcon("images/farm.jpg").getImage();
+                Image image = new ImageIcon("images/farm2.jpg").getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -199,14 +199,9 @@ public class SingleNormalUI {
         rabbitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	   frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-        rabbitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
             	SingleNormalUI window = new SingleNormalUI();
     			window.frame.setVisible(true);
+    			frame.setVisible(false); // 창 안보이게 하기 
             }
         });
 		

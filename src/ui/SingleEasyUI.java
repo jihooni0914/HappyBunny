@@ -77,7 +77,7 @@ public class SingleEasyUI {
 		
 		JPanel minePanel = new JPanel();
 		minePanel.setBackground(new Color(255, 255, 255));
-		minePanel.setBounds(12, 112, 500, 375);
+		minePanel.setBounds(12, 112, 400, 400);
 		backgroundLabel.add(minePanel);
 		minePanel.setLayout(new GridLayout(10,10));
 		
@@ -150,7 +150,7 @@ public class SingleEasyUI {
 		imageIcon = new ImageIcon(image);
 
 		JButton rabbitBtn = new JButton(imageIcon);
-		rabbitBtn.setBounds(231, 35, 62, 62);
+		rabbitBtn.setBounds(180, 35, 62, 62);
 		backgroundLabel.add(rabbitBtn);
 		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
 		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
@@ -186,18 +186,12 @@ public class SingleEasyUI {
         timer.start();
         
         
-       
-        rabbitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	   frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
         rabbitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	SingleEasyUI window = new SingleEasyUI();
     			window.frame.setVisible(true);
+    			frame.setVisible(false); // 창 안보이게 하기 
             }
         });
 		

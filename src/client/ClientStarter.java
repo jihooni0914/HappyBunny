@@ -20,6 +20,8 @@ public class ClientStarter {
 	
 	private LoginUI login;
 	private Login loginUI;
+	private MultiNormalUI multiNormalUI;
+	
 	
 	public static void main(String[] args) {
 		new ClientStarter();
@@ -27,7 +29,7 @@ public class ClientStarter {
 	
 	public ClientStarter() {
 		this.users = new LinkedList<>();
-		connectServer();
+//		connectServer();
 		
 		init();
 		setListeners();
@@ -37,6 +39,7 @@ public class ClientStarter {
 	private void init() {
 		login = new LoginUI();
 		loginUI = new Login();
+		multiNormalUI = new MultiNormalUI();
 	}
 	
 	private void setListeners() {
@@ -70,16 +73,17 @@ public class ClientStarter {
 		loginUI.multi.button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				connectServer();
 				String username = loginUI.multi.textbox.getText();
 				writer.println("login/" + username);
+				multiNormalUI.setVisible(true);
 			}
 		});
            
 	}
 	
 	private void setUIVisible() {
-//		login.setVisible(true);
+		login.setVisible(true);
 		loginUI.frame.setVisible(true);
 	}
 	
