@@ -61,6 +61,8 @@ public class ServerStarter {
 		public int cthid; // client thread num
 		public String name; // user input id
 		private boolean isExited = false;
+		private boolean isBoom = false;
+		private int score = 0;
 		
 		public ClientThread(Socket s, int cthid) {
 			this.socket = s;
@@ -95,7 +97,7 @@ public class ServerStarter {
 			catch (Exception e) {
 				System.err.println(e);
 				System.out.println("Client[" + this.cthid + "] disconnected");
-				pExit();
+				pExit(1);
 			}
 		}
 		
@@ -108,7 +110,7 @@ public class ServerStarter {
 				pBoom(Integer.parseInt(event[1]));
 				break;
 			case "exit" :
-				pExit();
+				pExit(Integer.parseInt(event[1]));
 				break;
 			}
 		}
@@ -140,35 +142,44 @@ public class ServerStarter {
 			}
 		}
 		
-		private void pBoom(int cthid) {
+		private void pBoom(int score) {
 			for (int i = 0; i < MAX_CLIENTS; i ++) {
 				if (i != cthid && clients[i] != null) {
-					clients[i].writer.println("die/" + cthid);
+					clients[i].writer.println("die/" + cthid + "/" + score);
 				}
 			}
 			
-			if (isStart == true && alive == c_cnt) {
+			alive--;
+			isBoom = true;
+			// all users boom
+			if (isStart == true && alive == 0) {
 				gameEnd();
 			}
 		}
 		
-		public void pExit() {
+		public void pExit(int score) {
 			// exit 시 다른 client에게 알리기
 			for (int i = 0; i < MAX_CLIENTS; i ++ ) {
 				if (i != this.cthid && clients[i] != null) {
-					clients[i].writer.println("exit/" + this.cthid);
+					
+					if (!isStart) {
+						clients[i].writer.println("exit/" + this.cthid);						
+					}
+					else {
+						clients[i].writer.println("die/" + cthid + "/" + score);
+					}
 				}
 			}
 			
-			clientExit(this.cthid);
-			this.isExited = true;
-		}
-		
-		public void clientExit(int cthid) {
+			
+			if (isStart && !isBoom) {
+				alive--;
+			}
 			clients[this.cthid] = null;
 			c_cnt--;
+			this.isExited = true;
 			
-			if (isStart == true && alive == c_cnt) {
+			if (alive == 0) {
 				gameEnd();
 			}
 		}

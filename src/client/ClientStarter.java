@@ -19,7 +19,6 @@ public class ClientStarter {
 	private PrintWriter writer;
 	private LinkedList<User> users;
 	
-	private LoginUI login;
 	private Login loginUI;
 	private MultiNormalUI multiNormalUI;
 	
@@ -30,7 +29,6 @@ public class ClientStarter {
 	
 	public ClientStarter() {
 		this.users = new LinkedList<>();
-//		connectServer();
 		
 		init();
 		setListeners();
@@ -38,39 +36,11 @@ public class ClientStarter {
 	}
 	
 	private void init() {
-		login = new LoginUI();
 		loginUI = new Login();
 		multiNormalUI = new MultiNormalUI();
 	}
 	
 	private void setListeners() {
-		login.loginButton.addActionListener(new ActionListener() {
-		      @Override
-		      public void actionPerformed(ActionEvent e) {
-		          String username = login.usernameField.getText();
-		          writer.println("login/" + username);
-		          login.usernameField.setText("");
-		      }
-		});
-			
-		login.printUsersButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				printUsers();
-			}
-		});
-		
-		login.bustButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int bustNum = Integer.parseInt(login.bustNumField.getText());
-				for (int i = 0; i < bustNum; i ++) {
-					writer.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-				}
-				writer.println("hahaha\n");
-			}
-		});
-		
 		loginUI.multi.button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,15 +54,13 @@ public class ClientStarter {
 		multiNormalUI.rabbitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				writer.println("boom/" + multiNormalUI.cthid);
+				writer.println("boom");
 				multiNormalUI.timer.stop();
 			}
 		});
-           
 	}
 	
 	private void setUIVisible() {
-//		login.setVisible(true);
 		loginUI.frame.setVisible(true);
 	}
 	
@@ -142,7 +110,7 @@ public class ClientStarter {
 		private void eventManager(String[] event) {
 			switch (event[0]) {
 			case "connect" :
-				pConnect(Integer.parseInt(event[1]));
+//				pConnect(Integer.parseInt(event[1]));
 				break;
 			case "user" :
 				pAddUser(event[1], event[2]);
@@ -162,17 +130,17 @@ public class ClientStarter {
 			}
 		}
 		
-		private void pConnect(int cthid) {
-			System.out.println("Client ID: " + cthid);
-			multiNormalUI.cthid = cthid;
-			multiNormalUI.rabbitBtn.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					writer.println("boom/" + cthid);
-					multiNormalUI.timer.stop();
-				}
-			});
-		}
+//		private void pConnect(int cthid) {
+//			System.out.println("Client ID: " + cthid);
+//			multiNormalUI.cthid = cthid;
+//			multiNormalUI.rabbitBtn.addActionListener(new ActionListener() {
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					writer.println("boom");
+//					multiNormalUI.timer.stop();
+//				}
+//			});
+//		}
 		
 		private void pAddUser(String cthid, String name) {
 			users.add(new User(Integer.parseInt(cthid), name));
@@ -243,5 +211,6 @@ class User {
 	public User(int cthid, String name) {
 		this.cthid = cthid;
 		this.name = name;
+		this.score = 0;
 	}
 }
