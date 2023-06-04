@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+
+
 import java.awt.Label;
 import javax.swing.Icon;
 
@@ -32,6 +35,7 @@ public class SingleEasyUI {
 	            try {
 	                SingleEasyUI window = new SingleEasyUI();
 	                window.frame.setVisible(true);
+	                   
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }
@@ -58,6 +62,7 @@ public class SingleEasyUI {
 	private void initialize() {
 		int score = 1234567890;
 		myButton but[][] = new myButton[20][15];
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 867, 559);
 		frame.setLocationRelativeTo(null);
@@ -74,10 +79,10 @@ public class SingleEasyUI {
         };
 		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(backgroundLabel);
-		
-		JPanel minePanel = new JPanel();
-		minePanel.setBackground(new Color(255, 255, 255));
-		minePanel.setBounds(12, 112, 500, 375);
+		 
+		Board minePanel = new Board();
+		minePanel.setBackground(Color.WHITE);
+		minePanel.setBounds(12, 112, 400, 400);
 		backgroundLabel.add(minePanel);
 		minePanel.setLayout(new GridLayout(10,10));
 		
@@ -160,15 +165,15 @@ public class SingleEasyUI {
 		
 		
 		
-		
-		for(int i=0;i<10;i++)
-		{
-			for(int j=0;j<10;j++)
-			{
-				but[i][j] = new myButton();
-				minePanel.add(but[i][j]);
-			}
-		}
+//		
+//		for(int i=0;i<10;i++)
+//		{
+//			for(int j=0;j<10;j++)
+//			{
+//				but[i][j] = new myButton();
+//				minePanel.add(but[i][j]);
+//			}
+//		}
 		
 		
 		ActionListener timerAction = new ActionListener() {

@@ -91,11 +91,11 @@ public class SingleNormalUI {
 		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
 		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
 		
-		JPanel minepanel = new JPanel();
-		minepanel.setBackground(Color.PINK);
-		minepanel.setBounds(12, 112, 500, 375);
-		backgroundLabel.add(minepanel);
-		minepanel.setLayout(new GridLayout(15,20));
+		Board minePanel = new Board();
+		minePanel.setBackground(Color.PINK);
+		minePanel.setBounds(12, 112, 500, 375);
+		backgroundLabel.add(minePanel);
+		minePanel.setLayout(new GridLayout(15,20));
 		
 		ImageIcon logo = new ImageIcon("images/test.png");
 		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
@@ -173,15 +173,15 @@ public class SingleNormalUI {
         });
 		
 		
-		for(int i=0;i<20;i++)
-		{
-			for(int j=0;j<15;j++)
-			{
-				but[i][j] = new myButton();
-				minepanel.add(but[i][j]);
-			}
-		}
-		
+//		for(int i=0;i<20;i++)
+//		{
+//			for(int j=0;j<15;j++)
+//			{
+//				but[i][j] = new myButton();
+//				minepanel.add(but[i][j]);
+//			}
+//		}
+//		
 		ActionListener timerAction = new ActionListener() {
             int counter = 0;
             
