@@ -187,7 +187,7 @@ public class ServerStarter {
 		private void gameEnd() {
 			for (int i = 0; i < MAX_CLIENTS; i ++) {
 				if (clients[i] != null) {
-					clients[i].writer.println("result");
+					clients[i].writer.println("end");
 				}
 			}
 		}

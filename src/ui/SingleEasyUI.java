@@ -1,217 +1,383 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 
-import java.awt.Label;
-import javax.swing.Icon;
-
 public class SingleEasyUI {
 
-	JFrame frame;
+   JFrame frame;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	 public static void main(String[] args) {
-	        SwingUtilities.invokeLater(() -> {
-	            try {
-	                SingleEasyUI window = new SingleEasyUI();
-	                window.frame.setVisible(true);
-	                   
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        });
-	    }
+   private int ROWS = 10;
+   private int COLS = 10;
+   private boolean[][] visited = new boolean[ROWS][COLS];
+   JButton but[][] = new JButton[ROWS][COLS];
+   private char[][] board = new char[ROWS][COLS];
+   private int remainingCells;
+   private static final int MINES = 10;
 
-	/**
-	 * Create the application.
-	 */
-	public SingleEasyUI() {
-		initialize();
-	}
+	private int score;
+	private JLabel scoreLabel;
 
-	class myButton extends JButton{
-		private int flagint =0;
-	}
-	/**
-	 * Initialize the contents of the frame.
-	 * @wbp.parser.entryPoint
-	 */
-	private void initialize() {
-		int score = 1234567890;
-		myButton but[][] = new myButton[20][15];
-		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 867, 559);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		JLabel backgroundLabel = new JLabel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image image = new ImageIcon("images/main.jpg").getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+   /**
+    * Launch the application.
+    */
+   public static void main(String[] args) {
+      EventQueue.invokeLater(new Runnable() {
+         public void run() {
+            try {
+               SingleEasyUI window = new SingleEasyUI();
+               window.frame.setVisible(true);
+            } catch (Exception e) {
+               e.printStackTrace();
             }
-        };
-		backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		frame.getContentPane().add(backgroundLabel);
-		 
-		Board minePanel = new Board();
-		minePanel.setBackground(Color.WHITE);
-		minePanel.setBounds(12, 112, 400, 400);
-		backgroundLabel.add(minePanel);
-		minePanel.setLayout(new GridLayout(10,10));
-		
-		JLabel scoreLabel = new JLabel(String.valueOf(score));
-		scoreLabel.setBounds(621, 112, 179, 66);
-		backgroundLabel.add(scoreLabel);
-		scoreLabel.setBackground(Color.WHITE);
-		scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
-		
-		JPanel normalpanel = new JPanel();
-		normalpanel.setLayout(null);
-		normalpanel.setBackground(Color.YELLOW);
-		normalpanel.setBounds(621, 346, 167, 69);
-		backgroundLabel.add(normalpanel);
-		
-		JButton btnNormal = new JButton("Normal");
-		btnNormal.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
-		btnNormal.setBounds(0, 0, 167, 69);
-		normalpanel.add(btnNormal);
-		
-		JPanel EasyPanel = new JPanel();
-		EasyPanel.setLayout(null);
-		EasyPanel.setBackground(Color.YELLOW);
-		EasyPanel.setBounds(621, 267, 167, 69);
-		backgroundLabel.add(EasyPanel);
-		
-		JButton btnNewButton = new JButton("Easy");
-		btnNewButton.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
-		btnNewButton.setBounds(0, 0, 167, 69);
-		EasyPanel.add(btnNewButton);
-		
-		JPanel hardPanel = new JPanel();
-		hardPanel.setLayout(null);
-		hardPanel.setBackground(Color.YELLOW);
-		hardPanel.setBounds(621, 425, 167, 62);
-		backgroundLabel.add(hardPanel);
-		
-		JButton btnHard = new JButton("Hard");
-		btnHard.setBounds(0, 0, 167, 62);
-		hardPanel.add(btnHard);
-		btnHard.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
-		btnHard.addActionListener(new EventHandler());
-		btnHard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
+         }
+      });
+   }
+
+   /**
+    * Create the application.
+    */
+   public SingleEasyUI() {
+      initialize();
+   }
+
+   /**
+    * Initialize the contents of the frame.
+    */
+   private void initialize() {
+      
+      for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                board[i][j] = '-';
+                visited[i][j] = false;
             }
-        });
-		
-		JLabel timerLabel = new JLabel("Start!");
-		timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
-		timerLabel.setBounds(621, 188, 167, 69);
-		backgroundLabel.add(timerLabel);
-		
-		ImageIcon rabbit = new ImageIcon("images/rabbit.png");
-		Image rabbitimage = rabbit.getImage().getScaledInstance(59, 62, Image.SCALE_SMOOTH);
-		rabbit = new ImageIcon(rabbitimage);
-		
-		ImageIcon logo = new ImageIcon("images/test.png");
-		Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
-		logo = new ImageIcon(logoimage);
+        }
+      placeMines();
+      setCellText();
+      printBoard();
+      remainingCells = ROWS * COLS - MINES;
 
-		JLabel logoLabel = new JLabel(logo);
-		logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
-		logoLabel.setBounds(626, 32, 185, 69);
-		backgroundLabel.add(logoLabel);
-		
-		ImageIcon imageIcon = new ImageIcon("images/rabbit.png");
-		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
+      score = 0;
 
-		JButton rabbitBtn = new JButton(imageIcon);
-		rabbitBtn.setBounds(180, 35, 62, 62);
-		backgroundLabel.add(rabbitBtn);
-		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
-		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
-		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+      frame = new JFrame();
+      frame.setBounds(100, 100, 1000, 700);
+      frame.setLocationRelativeTo(null);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.getContentPane().setLayout(null);
 
-		
-		
-		
-//		
-//		for(int i=0;i<10;i++)
-//		{
-//			for(int j=0;j<10;j++)
-//			{
-//				but[i][j] = new myButton();
-//				minePanel.add(but[i][j]);
-//			}
-//		}
-		
-		
-		ActionListener timerAction = new ActionListener() {
-            int counter = 0;
+      JLabel backgroundLabel = new JLabel() {
+         @Override
+         protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Image image = new ImageIcon("images/main.jpg")
+                  .getImage();
+            g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+         }
+      };
+      backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+      frame.getContentPane().add(backgroundLabel);
+
+      ImageIcon imageIcon = new ImageIcon("images/rabbit.png");
+      Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
+      imageIcon = new ImageIcon(image);
+      
+        JPanel minePanel = new JPanel();
+        backgroundLabel.add(minePanel);
+        minePanel.setBackground(Color.PINK);
+        minePanel.setBounds(12, 130, 800, 500);
+        minePanel.setLayout(new GridLayout(ROWS,COLS));
+      
+      ImageIcon logo = new ImageIcon("images/test.png");
+       Image logoimage = logo.getImage().getScaledInstance(185, 69, Image.SCALE_SMOOTH);
+       logo = new ImageIcon(logoimage);
+   
+      JPanel EasyPanel = new JPanel();
+      backgroundLabel.add(EasyPanel);
+      EasyPanel.setLayout(null);
+      EasyPanel.setBackground(Color.YELLOW);
+      EasyPanel.setBounds(824, 305, 150, 75);
+
+         JButton EastBtn = new JButton("Easy");
+         EastBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+         EastBtn.setBounds(0, 0, 150, 75);
+         EasyPanel.add(EastBtn);
+         EastBtn.addActionListener(new EventHandler());
+         EastBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 frame.setVisible(false); // 창 안보이게 하기 
+             }
+         });
+
+         JPanel hardPanel = new JPanel();
+         backgroundLabel.add(hardPanel);
+         hardPanel.setLayout(null);
+         hardPanel.setBackground(Color.YELLOW);
+         hardPanel.setBounds(824, 555, 150, 75);
+
+         JButton hardBtn = new JButton("Hard");
+         hardBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+         hardBtn.setBounds(0, 0, 150, 75);
+         hardPanel.add(hardBtn);
+         hardBtn.addActionListener(new EventHandler());
+         hardBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 frame.setVisible(false); // 창 안보이게 하기 
+             }
+         });
+
+         JPanel noralPanel = new JPanel();
+         backgroundLabel.add(noralPanel);
+         noralPanel.setLayout(null);
+         noralPanel.setBackground(Color.YELLOW);
+         noralPanel.setBounds(824, 429, 150, 75);
+
+         JButton notmalBtn = new JButton("Normal");
+         notmalBtn.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
+         notmalBtn.setBounds(0, 0, 150, 75);
+         noralPanel.add(notmalBtn);
+         
+         notmalBtn.addActionListener(new EventHandler());
+         notmalBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 frame.setVisible(false); // 창 안보이게 하기 
+             }
+         });
+
+         JButton rabbitBtn = new JButton(imageIcon);
+         backgroundLabel.add(rabbitBtn);
+         rabbitBtn.setBounds(373, 36, 62, 62);
+         rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
+         rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
+         rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+         rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+
+         JLabel logoLabel = new JLabel(logo);
+         backgroundLabel.add(logoLabel);
+         logoLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 28));
+         logoLabel.setBounds(770, 36, 185, 69);
+
+         scoreLabel = new JLabel(String.valueOf(score));
+         backgroundLabel.add(scoreLabel);
+         scoreLabel.setBounds(824, 130, 150, 62);
+         scoreLabel.setBackground(Color.WHITE);
+         scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
+         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+         JLabel timerLabel = new JLabel("Start!");
+         backgroundLabel.add(timerLabel);
+         timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
+         timerLabel.setBounds(824, 202, 150, 60);
+         
+
+
+      for (int i = 0; i < ROWS; i++) {
+         for (int j = 0; j < COLS; j++) {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(50, 50));
+            button.addActionListener(new ButtonListener(i, j));
+            button.addMouseListener(new MouseListener(i, j));
             
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                counter++;
-                timerLabel.setText("" + counter);
-                timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            }
-        };
-        
-        Timer timer = new Timer(1000, timerAction); // 1초마다 실행
-        timer.start();
-        
-        
-        rabbitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	SingleEasyUI window = new SingleEasyUI();
-    			window.frame.setVisible(true);
-    			frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
+            button.setFont(new Font("Maiandra GD", Font.PLAIN, 11));
+            button.setForeground(Color.CYAN);
+            but[i][j] = button;
+            minePanel.add(button);
+         }
+      }
+
+      ActionListener timerAction = new ActionListener() {
+         int counter = 0;
+
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            counter++;
+            timerLabel.setText("" + counter);
+            timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+         }
+      };
+
+      Timer timer = new Timer(1000, timerAction); // 1초마다 실행
+      timer.start();
+
+      rabbitBtn.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            frame.setVisible(false); // 창 안보이게 하기
+         }
+      });
+      rabbitBtn.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            SingleEasyUI window = new SingleEasyUI();
+            window.frame.setVisible(true);
+         }
+      });
+   }
+
+   private class ButtonListener implements ActionListener {
+      private int row;
+      private int col;
+
+      public ButtonListener(int row, int col) {
+         this.row = row;
+         this.col = col;
+      }
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         revealCell(row, col);
+      }
+   }
+   
+	private class MouseListener extends MouseAdapter {
+		private int row;
+		private int col;
+		private boolean color_toggle;
 		
-		btnNewButton.addActionListener(new EventHandler());
-		btnNewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-		btnNormal.addActionListener(new EventHandler());
-		btnNormal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
+		public MouseListener(int row, int col) {
+			this.row = row;
+			this.col = col;
+		}
+		
+
+
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	        if (e.getButton() == MouseEvent.BUTTON3 && but[row][col].isEnabled()) {
+	        	
+	        	if (color_toggle) {
+	        		but[row][col].setBackground(new Color(0xb9, 0xf0, 0xf8));
+	        		color_toggle = false;
+	        		but[row][col].setEnabled(true);
+	        	}
+	        	else {
+	        		but[row][col].setBackground(Color.PINK);
+	        		color_toggle = true;
+	        	}
+	        }
+	    }
 	}
+
+   private void revealCell(int row, int col) {
+      if (row < 0 || row >= ROWS || col < 0 || col >= COLS || visited[row][col])
+         return;
+
+      visited[row][col] = true;
+      but[row][col].setEnabled(false);
+      but[row][col].setText(Character.toString(board[row][col]));
+      remainingCells--;
+
+		if (board[row][col] == '0') {
+			but[row][col].setText("");
+			score++;
+			scoreLabel.setText(Integer.toString(score));
+			revealNeighbors(row, col);
+		}
+		else if (board[row][col] >= '1' && board[row][col] <= '9') {
+			score++;
+			scoreLabel.setText(Integer.toString(score));
+		}
+		else if (board[row][col] == '*') {
+			gameOver(false);
+		}
+		else if (remainingCells == 0) {
+			gameOver(true);
+		}
+   }
+
+   private void revealNeighbors(int row, int col) {
+      for (int i = row - 1; i <= row + 1; i++) {
+          for (int j = col - 1; j <= col + 1; j++) {
+              if (i >= 0 && i < ROWS && j >= 0 && j < COLS) {
+                 if (board[i][j] != '*') {
+                    revealCell(i, j);                    
+                 }
+              }
+          }
+      }
+   
+   }
+   
+   private void printBoard() {
+      for (int i = 0; i < ROWS; i ++) {
+         for (int j = 0; j < COLS; j ++) {
+            System.out.print(board[i][j] + " ");
+         }
+         System.out.println();
+      }
+   }
+
+   private void placeMines() {
+      int count = 0;
+      while (count < MINES) {
+         int x = (int) (Math.random() * ROWS);
+         int y = (int) (Math.random() * COLS);
+         if (board[x][y] != '*') {
+            board[x][y] = '*';
+            count++;
+         }
+      }
+   }
+   
+   private void setCellText() {
+      for (int i = 0; i < ROWS; i ++) {
+         for (int j = 0; j < COLS; j ++) {
+            // mine 있는 cell은 건너뛰기
+            if (board[i][j] == '*') {
+               continue;
+            }
+            board[i][j] = countMines(i, j);
+         }
+      }
+   }
+
+   private char countMines(int row, int col) {
+      int count = 0;
+      
+      for (int i = row - 1; i <= row + 1; i ++) {
+         for (int j = col - 1; j <= col + 1; j ++) {
+            // 범위 벗어나면 continue
+            if (i < 0 || i >= ROWS || j < 0 || j >= COLS) {
+               continue;
+            }
+            
+            // 폭탄 있으면 count
+            if (board[i][j] == '*') {
+               count ++;
+            }
+         }
+      }
+      
+      return (char)('0' + count);
+   }
+   
+   private void gameOver(boolean win) {
+      if (win) {
+            JOptionPane.showMessageDialog(frame, "Congratulations! You won the game.");
+        } else {
+            JOptionPane.showMessageDialog(frame, "Game over! You hit a mine.");
+        }
+   }
 }
-
-

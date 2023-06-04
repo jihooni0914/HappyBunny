@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import javax.swing.Timer;
 
 import ui.*;
 
@@ -16,7 +17,7 @@ public class ClientStarter {
 	private static int PORT = 4885;
 	private static String HOST = "localhost";
 	private Socket socket;
-	private PrintWriter writer;
+	public PrintWriter writer;
 	private LinkedList<User> users;
 	
 	private Login loginUI;
@@ -37,7 +38,7 @@ public class ClientStarter {
 	
 	private void init() {
 		loginUI = new Login();
-		multiNormalUI = new MultiNormalUI();
+		multiNormalUI = new MultiNormalUI(this);
 	}
 	
 	private void setListeners() {
@@ -125,7 +126,7 @@ public class ClientStarter {
 				pDie(Integer.parseInt(event[1]));
 				break;
 			case "result" :
-				pResult();
+				pEnd();
 				break;
 			}
 		}
@@ -194,8 +195,19 @@ public class ClientStarter {
 			
 		}
 		
-		private void pResult() {
+		private void pEnd() {
 			// 게임 결과 출력
+			
+            Timer timer = new Timer(5000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    multiNormalUI.dispose(); // 프레임을 닫고 자원을 해제합니다.
+                    multiNormalUI.setVisible(false);
+                    System.exit(0); // JVM을 종료합니다.
+                }
+            });
+            timer.setRepeats(false); // 한 번만 실행되도록 설정
+            timer.start();
 			return;
 		}
 	}
