@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -79,11 +80,19 @@ public class ClientStarter {
 				multiNormalUI.setVisible(true);
 			}
 		});
+		
+		multiNormalUI.rabbitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				writer.println("boom/" + multiNormalUI.cthid);
+				multiNormalUI.timer.stop();
+			}
+		});
            
 	}
 	
 	private void setUIVisible() {
-		login.setVisible(true);
+//		login.setVisible(true);
 		loginUI.frame.setVisible(true);
 	}
 	
@@ -130,8 +139,11 @@ public class ClientStarter {
 			}
 		}
 		
-		public void eventManager(String[] event) {
+		private void eventManager(String[] event) {
 			switch (event[0]) {
+			case "connect" :
+				pConnect(Integer.parseInt(event[1]));
+				break;
 			case "user" :
 				pAddUser(event[1], event[2]);
 				break;
@@ -139,8 +151,7 @@ public class ClientStarter {
 				pExit(Integer.parseInt(event[1]));
 				break;
 			case "start" :
-				break;
-			case "" :
+				pStart();
 				break;
 			case "die" :
 				pDie(Integer.parseInt(event[1]));
@@ -151,11 +162,34 @@ public class ClientStarter {
 			}
 		}
 		
-		public void pAddUser(String cthid, String name) {
-			users.add(new User(Integer.parseInt(cthid), name));
+		private void pConnect(int cthid) {
+			System.out.println("Client ID: " + cthid);
+			multiNormalUI.cthid = cthid;
+			multiNormalUI.rabbitBtn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					writer.println("boom/" + cthid);
+					multiNormalUI.timer.stop();
+				}
+			});
 		}
 		
-		public void pExit(int cthid) {
+		private void pAddUser(String cthid, String name) {
+			users.add(new User(Integer.parseInt(cthid), name));
+			
+			for (int i = 0; i < 3; i ++) {
+				UserPanel up = multiNormalUI.users[i];
+				if (!up.isAlive) {
+					up.userIdLabel.setText(name);
+					up.cthid = Integer.parseInt(cthid);
+					up.setBackground(Color.green);
+					up.isAlive = true;
+					return;
+				}
+			}
+		}
+		
+		private void pExit(int cthid) {
 			ListIterator<User> iter = users.listIterator();
 			while (iter.hasNext()) {
 				User u = iter.next();
@@ -164,13 +198,35 @@ public class ClientStarter {
 					break;
 				}
 			}
+			
+			for (int i = 0; i < 3; i ++) {
+				UserPanel up = multiNormalUI.users[i];
+				if (up.cthid == cthid) {
+					up.userIdLabel.setText("No User");
+					up.cthid = -1;
+					up.setBackground(null);
+					up.isAlive = false;
+					return;				
+				}
+			}
 		}
 		
-		public void pDie(int cthid) {
-			users.get(cthid).isDead = true;
+		private void pStart() {
+			multiNormalUI.timer.start();
 		}
 		
-		public void pResult() {
+		private void pDie(int cthid) {
+			for (int i = 0; i < 3; i ++) {
+				UserPanel up = multiNormalUI.users[i];
+				if (up.cthid == cthid) {
+					up.setBackground(Color.red);
+					return;
+				}
+			}
+			
+		}
+		
+		private void pResult() {
 			// 게임 결과 출력
 			return;
 		}
@@ -180,7 +236,8 @@ public class ClientStarter {
 class User {
 	public int cthid;
 	public String name;
-	public boolean isDead;
+	public int score;
+	public int time;
 	
 	
 	public User(int cthid, String name) {

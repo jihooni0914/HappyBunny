@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MultiNormalUI extends JFrame {
+	public UserPanel[] users;
+	public int cthid = -1;
+	public JButton rabbitBtn;
+	public Timer timer;
 	
 	public MultiNormalUI() {
 		initialize();
@@ -39,7 +43,7 @@ public class MultiNormalUI extends JFrame {
 		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 
-		JButton rabbitBtn = new JButton(imageIcon);
+		rabbitBtn = new JButton(imageIcon);
 		rabbitBtn.setBounds(224, 35, 62, 62);
 		backgroundLabel.add(rabbitBtn);
 		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
@@ -68,10 +72,11 @@ public class MultiNormalUI extends JFrame {
 		scoreLabel.setBackground(Color.WHITE);
 		scoreLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		
-		JLabel timerLabel = new JLabel("Start!");
+		JLabel timerLabel = new JLabel("Waitng...");
 		backgroundLabel.add(timerLabel);
 		timerLabel.setFont(new Font("Maiandra GD", Font.PLAIN, 31));
 		timerLabel.setBounds(623, 189, 167, 60);
+		
 		
 		
 		JPanel usersPanel = new JPanel();
@@ -81,13 +86,12 @@ public class MultiNormalUI extends JFrame {
 		usersPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		backgroundLabel.add(usersPanel);
 		
-		UserPanel userPanel1 = new UserPanel(55, 70, 1);
-		UserPanel userPanel2 = new UserPanel(55, 70, 2);
-		UserPanel userPanel3 = new UserPanel(55, 70, 3);
+		users = new UserPanel[3];
+		for (int i = 0; i < 3; i ++) {
+			users[i] = new UserPanel(55, 70, i + 1);
+			usersPanel.add(users[i]);
+		}
 		
-		usersPanel.add(userPanel1);
-		usersPanel.add(userPanel2);
-		usersPanel.add(userPanel3);
 		
 		for(int i=0;i<20;i++)
 		{
@@ -99,40 +103,34 @@ public class MultiNormalUI extends JFrame {
 		}
 		
 		ActionListener timerAction = new ActionListener() {
-            int counter = 0;
+            int counter = 5;
+            boolean isStart = false;
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                counter++;
-                timerLabel.setText("" + counter);
+            	if (counter == 0) {
+            		timerLabel.setText("Start!");
+            		isStart = true;
+            		counter ++;
+            	}
+            	else {
+            		timerLabel.setText("" + counter);
+            		
+            		if (!isStart) {
+            			counter--;
+            		}
+            		else {
+            			counter++;
+            		}
+            	}
                 timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             }
         };
         
-        Timer timer = new Timer(1000, timerAction); // 1초마다 실행
-        timer.start();
+        timer = new Timer(1000, timerAction); // 1초마다 실행
+//        timer.start();
 		
 	}
 }
 
-class UserPanel extends JPanel {
-	public UserPanel(int x, int y, int usernum) {
-		setLayout(null);
-//		setBackground(Color.green);
-		
-		ImageIcon userIcon = new ImageIcon("images/user" + usernum + ".png");
-		userIcon = new ImageIcon(userIcon.getImage().getScaledInstance(x, y, Image.SCALE_SMOOTH));
-		JLabel userIconLabel = new JLabel(userIcon);
-		userIconLabel.setBounds(0, 0, x, y);
-		userIconLabel.setVerticalAlignment(JLabel.CENTER);
-		
-//		JLabel userIdLabel = new JLabel("User" + usernum);
-		JLabel userIdLabel = new JLabel("No User");
-		userIdLabel.setBounds(x + 10, 0, 2 * x, y - 10);
-		userIdLabel.setVerticalAlignment(JLabel.CENTER);
-		userIdLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		add(userIconLabel);
-		add(userIdLabel);
-	}
-}
+
