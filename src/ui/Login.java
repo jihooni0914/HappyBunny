@@ -53,11 +53,14 @@ public class Login {
         backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
         frame.getContentPane().add(backgroundLabel);
 
+
         JButton singleButton = new JButton("SinglePlay");
         singleButton.setText("SinglePlay");
         singleButton.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
         singleButton.setBounds(15, 275, 250, 85);
         backgroundLabel.add(singleButton);
+        singleButton.setBackground(new Color(0x66, 0xcd, 0xaa));
+
 
         JLabel lblNewLabel = new JLabel("Happy          Bunny");
         lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -71,6 +74,7 @@ public class Login {
         JButton multiButton = new JButton("MultiPlay");
         multiButton.setFont(new Font("Maiandra GD", Font.PLAIN, 30));
         multiButton.setBounds(455, 275, 250, 85);
+        multiButton.setBackground(new Color(0x66, 0xcd, 0xaa)); 
         backgroundLabel.add(multiButton);
 
         singleButton.addActionListener(new EventHandler());

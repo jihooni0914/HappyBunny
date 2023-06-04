@@ -66,7 +66,7 @@ public class SingleHardUI {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image image = new ImageIcon("images/farm.jpg").getImage();
+                Image image = new ImageIcon("images/main.jpg").getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
