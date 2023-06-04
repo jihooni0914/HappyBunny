@@ -45,11 +45,8 @@ public class SingleHardUI {
 		initialize();
 	}
 	
-	class myButton extends JButton
-	{
+	class myButton extends JButton{
 		private int flagint =0;
-		
-		
 	}
 
 	/**
@@ -140,26 +137,21 @@ public class SingleHardUI {
 		Image image = imageIcon.getImage().getScaledInstance(62, 62, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		
-				JButton rabbitBtn = new JButton(imageIcon);
-				backgroundLabel.add(rabbitBtn);
-				rabbitBtn.setBounds(274, 34, 62, 62);
-				rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
-				rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
-				rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
-				rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
-				rabbitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	   frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
-				rabbitBtn.addActionListener(new ActionListener() {
-				    @Override
-				    public void actionPerformed(ActionEvent e) {
-				    	SingleHardUI window = new SingleHardUI();
-    			window.frame.setVisible(true);
-				    }
-				});
+		JButton rabbitBtn = new JButton(imageIcon);
+		backgroundLabel.add(rabbitBtn);
+		rabbitBtn.setBounds(274, 34, 62, 62);
+		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
+		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		rabbitBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+		rabbitBtn.setVerticalTextPosition(SwingConstants.CENTER);
+		rabbitBtn.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	SingleHardUI window = new SingleHardUI();
+		    	window.frame.setVisible(true);
+		    	frame.setVisible(false); // 창 안보이게 하기 
+		    }
+		});
 		
 		easyBtn.addActionListener(new EventHandler());
 		easyBtn.addActionListener(new ActionListener() {

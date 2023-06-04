@@ -49,11 +49,8 @@ public class SingleEasyUI {
 		initialize();
 	}
 
-	class myButton extends JButton
-	{
+	class myButton extends JButton{
 		private int flagint =0;
-		
-		
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -73,7 +70,7 @@ public class SingleEasyUI {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image image = new ImageIcon("images/farm.jpg").getImage();
+                Image image = new ImageIcon("images/main.jpg").getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -155,7 +152,7 @@ public class SingleEasyUI {
 		imageIcon = new ImageIcon(image);
 
 		JButton rabbitBtn = new JButton(imageIcon);
-		rabbitBtn.setBounds(231, 35, 62, 62);
+		rabbitBtn.setBounds(180, 35, 62, 62);
 		backgroundLabel.add(rabbitBtn);
 		rabbitBtn.setVerticalAlignment(SwingConstants.CENTER);
 		rabbitBtn.setHorizontalAlignment(SwingConstants.CENTER);
@@ -191,18 +188,12 @@ public class SingleEasyUI {
         timer.start();
         
         
-       
-        rabbitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	   frame.setVisible(false); // 창 안보이게 하기 
-            }
-        });
         rabbitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	SingleEasyUI window = new SingleEasyUI();
     			window.frame.setVisible(true);
+    			frame.setVisible(false); // 창 안보이게 하기 
             }
         });
 		

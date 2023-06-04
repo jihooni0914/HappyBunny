@@ -13,6 +13,8 @@ public class ServerStarter {
 	private static int PORT = 4885;
 	private static int MAX_CLIENTS = 4;
 	private int c_cnt;
+	private int alive;
+	private boolean isStart = false;
 	
 	public ServerStarter() {
 		try {
@@ -70,7 +72,7 @@ public class ServerStarter {
 			try {
 				reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 				writer = new PrintWriter(this.socket.getOutputStream(), true);
-				writer.println("hi");
+				writer.println("connect/" + cthid);
 				
 				String recv_msg = null;
 				InetAddress clientAddress = this.socket.getInetAddress();
@@ -102,18 +104,17 @@ public class ServerStarter {
 			case "login" :
 				pLogin(event[1]);
 				break;
-			case "start" :
-				
-				break;
 			case "boom" :
-				break;
-			case "timeout" :
+				pBoom(Integer.parseInt(event[1]));
 				break;
 			case "exit" :
 				pExit();
 				break;
-			
 			}
+		}
+		
+		public void sendId(int cthid) {
+			writer.println("connect/" + cthid);
 		}
 		
 		public void pLogin(String name) {
@@ -129,6 +130,26 @@ public class ServerStarter {
 			}
 			
 			printClients();
+			
+			if (c_cnt == MAX_CLIENTS) {
+				for (ClientThread c : clients) {
+					c.writer.println("start");
+					alive = 4;
+					isStart = true;
+				}
+			}
+		}
+		
+		private void pBoom(int cthid) {
+			for (int i = 0; i < MAX_CLIENTS; i ++) {
+				if (i != cthid && clients[i] != null) {
+					clients[i].writer.println("die/" + cthid);
+				}
+			}
+			
+			if (isStart == true && alive == c_cnt) {
+				gameEnd();
+			}
 		}
 		
 		public void pExit() {
@@ -146,6 +167,18 @@ public class ServerStarter {
 		public void clientExit(int cthid) {
 			clients[this.cthid] = null;
 			c_cnt--;
+			
+			if (isStart == true && alive == c_cnt) {
+				gameEnd();
+			}
+		}
+		
+		private void gameEnd() {
+			for (int i = 0; i < MAX_CLIENTS; i ++) {
+				if (clients[i] != null) {
+					clients[i].writer.println("result");
+				}
+			}
 		}
 	}
 	
